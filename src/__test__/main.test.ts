@@ -4,7 +4,50 @@
 
 import * as main  from '../ts/main';
 import * as functions from '../ts/functions';
-import { Todo } from '../ts/models/Todo'
+import { Todo } from '../ts/models/Todo';
+
+beforeEach(() => {
+  document.body.innerHTML = '';
+  localStorage.clear();
+  jest.restoreAllMocks();
+});
+
+describe('event listener click functions should work', () => {
+  test('should toggle todos on click', () => {
+    // assign
+    document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
+    let todos: Todo[] = [new Todo('Programmera', false)];
+    
+    main.createHtml(todos);
+
+    // act
+    document.querySelector('li')?.click();
+
+    // assert
+    expect(todos[0].done).toBe(true);  
+  });
+
+  test('should call clearTodos-function on click', () => {
+    // assign
+    document.body.innerHTML = `<button type="button" id="clearTodos">Rensa lista</button>`;
+
+    let todos: Todo[] = [];
+
+    let spyOnClearTodos = jest.spyOn(main, 'clearTodos').mockReturnValue();
+
+    document.getElementById("clearTodos")?.addEventListener("click", () => {
+      main.clearTodos(todos);
+    });
+
+    // act
+    (document.querySelector('#clearTodos') as HTMLButtonElement)?.click();
+
+    // assert
+    expect(spyOnClearTodos).toHaveBeenCalled();
+  
+    spyOnClearTodos.mockReset();
+  });
+});
 
 describe('creating html', () => {
   test('should create html', () => {

@@ -4,7 +4,7 @@ import { Todo } from "./models/Todo";
 let todos: Todo[] = JSON.parse(localStorage.getItem("todos") || "[]");
 
 document.getElementById("clearTodos")?.addEventListener("click", () => {
-  clearTodos(todos);
+  exports.clearTodos(todos);
 });
 
 (document.getElementById("newTodoForm") as HTMLFormElement)?.addEventListener(
