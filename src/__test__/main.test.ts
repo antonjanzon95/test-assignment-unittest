@@ -12,7 +12,7 @@ beforeEach(() => {
   jest.restoreAllMocks();
 });
 
-describe('event listener click functions should work', () => {
+describe('event listeners should be added and called on event', () => {
   test('should toggle todos on click', () => {
     // assign
     document.body.innerHTML = `<ul id="todos" class="todo"></ul>`;
@@ -31,13 +31,9 @@ describe('event listener click functions should work', () => {
     // assign
     document.body.innerHTML = `<button type="button" id="clearTodos">Rensa lista</button>`;
 
-    let todos: Todo[] = [];
-
     let spyOnClearTodos = jest.spyOn(main, 'clearTodos').mockReturnValue();
 
-    document.getElementById("clearTodos")?.addEventListener("click", () => {
-      main.clearTodos(todos);
-    });
+    main.testButtonClick();
 
     // act
     (document.querySelector('#clearTodos') as HTMLButtonElement)?.click();
@@ -117,6 +113,7 @@ describe('clearing all todos', () => {
       new Todo('Drick vatten', false), 
       new Todo('Borsta tänderna', false)
     ];
+    
     let spyOnRemoveAllTodos = jest.spyOn(functions, 'removeAllTodos').mockReturnValue();
     let spyOnCreateHtml = jest.spyOn(main, 'createHtml').mockReturnValue();
   

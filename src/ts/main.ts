@@ -1,11 +1,13 @@
-import { addTodo, changeTodo, removeAllTodos } from "./functions";
+import { addTodo, changeTodo, removeAllTodos, sortTodos } from "./functions";
 import { Todo } from "./models/Todo";
 
 let todos: Todo[] = JSON.parse(localStorage.getItem("todos") || "[]");
 
-document.getElementById("clearTodos")?.addEventListener("click", () => {
-  exports.clearTodos(todos);
-});
+export function testButtonClick() {
+  document.getElementById("clearTodos")?.addEventListener("click", () => {
+    exports.clearTodos(todos);
+  });
+}
 
 (document.getElementById("newTodoForm") as HTMLFormElement)?.addEventListener(
   "submit",
